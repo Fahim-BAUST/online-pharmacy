@@ -11,27 +11,17 @@ const Filters: React.FC<FiltersProps> = ({
 }) => {
     return (
         <Box display="flex" gap={2} alignItems="center" mb={3}>
-            <InputField
-                label="Filter by Name"
-                value={filters.name}
-                onChange={(e) => onFilterChange('name', e.target.value)}
-                variant="outlined"
-                size="small"
-            />
-            <InputField
-                label="Filter by Description"
-                value={filters.description}
-                onChange={(e) => onFilterChange('description', e.target.value)}
-                variant="outlined"
-                size="small"
-            />
-            <InputField
-                label="Filter by Manufacturer"
-                value={filters.manufacturer}
-                onChange={(e) => onFilterChange('manufacturer', e.target.value)}
-                variant="outlined"
-                size="small"
-            />
+            {Object.keys(filters).map((filter: string) => (
+                <InputField
+                    key={filter}
+                    label="Filter by Name"
+                    value={filters[filter]}
+                    onChange={(e) => onFilterChange(filter, e.target.value)}
+                    variant="outlined"
+                    size="small"
+                />
+            ))}
+
             <Button variant="contained" onClick={onApplyFilters}>
                 Apply
             </Button>
