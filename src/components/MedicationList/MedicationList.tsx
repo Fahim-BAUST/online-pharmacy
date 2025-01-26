@@ -49,18 +49,24 @@ const MedicationList: React.FC = () => {
 
     const applyFilters = () => {
         setLoading(true)
+
+        // Filter the medications array based on the applied filters
         const results = medications.filter((medication) =>
+            // Check if every filter condition is met
             Object.keys(filters).every((key) =>
+                // If the filter for the current key exists and has a value
                 filters[key as keyof typeof filters]
-                    ? medication[key as keyof typeof filters]
+                    ? // Check if the medication property for the current key contains the filter value (case-insensitive)
+                      medication[key as keyof typeof filters]
                           .toString()
                           .toLowerCase()
                           .includes(
-                              filters[key as keyof typeof filters].toLowerCase()
+                              filters[key as keyof typeof filters].toLowerCase() // Check if the medication value includes the filter value
                           )
                     : true
             )
         )
+
         setFilteredMedications(results)
         setPage(0)
         setLoading(false)
@@ -69,22 +75,32 @@ const MedicationList: React.FC = () => {
     const resetFilters = () => {
         setFilters(filterInitialValue)
         setFilteredMedications(medications)
+        setSortOrder(null)
+    }
+
+    const handleAscSort = (prev: typeof filteredMedications) => {
+        return [...prev].sort((a, b) => a.price - b.price)
+    }
+
+    const handleDescSort = (prev: typeof filteredMedications) => {
+        return [...prev].sort((a, b) => b.price - a.price)
     }
 
     const handleSortChange = () => {
-        if (sortOrder === null) {
-            setSortOrder('asc')
-            setFilteredMedications((prev) =>
-                [...prev].sort((a, b) => a.price - b.price)
-            )
-        } else if (sortOrder === 'asc') {
-            setSortOrder('desc')
-            setFilteredMedications((prev) =>
-                [...prev].sort((a, b) => b.price - a.price)
-            )
+        // Toggle the sorting order and apply the corresponding sorting logic
+        const nextSortOrder =
+            sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? null : 'asc'
+
+        // Update the sort order
+        setSortOrder(nextSortOrder)
+
+        // Sort or reset filtered medications based on the new sort order
+        if (nextSortOrder === 'asc') {
+            setFilteredMedications((prev) => handleAscSort(prev))
+        } else if (nextSortOrder === 'desc') {
+            setFilteredMedications((prev) => handleDescSort(prev))
         } else {
-            setSortOrder(null)
-            setFilteredMedications([...medications]) // Reset to default
+            setFilteredMedications([...medications])
         }
     }
 
