@@ -3,14 +3,15 @@ import { Alert, Box, Skeleton, Snackbar, TablePagination } from '@mui/material'
 import Filters from '../Filters/Filters'
 import MedicationTable from './MedicationTable'
 import { fetchMedications } from '../../services/api'
-import { Medication } from '../../utils/types/types'
+import { Filter, Medication } from '../../utils/types/types'
 
 const MedicationList: React.FC = () => {
-    const [filters, setFilters] = useState({
+    const filterInitialValue: Filter = {
         name: '',
         description: '',
         manufacturer: '',
-    })
+    }
+    const [filters, setFilters] = useState(filterInitialValue)
     const [medications, setMedications] = useState<Medication[]>([])
     const [filteredMedications, setFilteredMedications] = useState(medications)
     const [loading, setLoading] = useState(false)
@@ -66,7 +67,7 @@ const MedicationList: React.FC = () => {
     }
 
     const resetFilters = () => {
-        setFilters({ name: '', description: '', manufacturer: '' })
+        setFilters(filterInitialValue)
         setFilteredMedications(medications)
     }
 

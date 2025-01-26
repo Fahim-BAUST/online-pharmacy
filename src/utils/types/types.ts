@@ -13,9 +13,13 @@ export interface MedicationTableProps {
     sortOrder: 'asc' | 'desc' | null
     onSortChange: () => void
 }
-
+export interface Filter {
+    name: string
+    description: string
+    manufacturer: string
+}
 export interface FiltersProps {
-    filters: { name: string; description: string; manufacturer: string }
+    filters: Filter
     onFilterChange: (key: keyof FiltersProps['filters'], value: string) => void
     onApplyFilters: () => void
     onResetFilters: () => void
