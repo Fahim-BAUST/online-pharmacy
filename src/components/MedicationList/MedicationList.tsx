@@ -4,14 +4,6 @@ import Filters from '../Filters/Filters'
 import MedicationTable from './MedicationTable'
 import { medications } from '../../utils/data'
 
-interface Medication {
-    id: number
-    name: string
-    description: string
-    manufacturer: string
-    price: number
-}
-
 const MedicationList: React.FC = () => {
     const [filters, setFilters] = useState({
         name: '',
@@ -30,7 +22,7 @@ const MedicationList: React.FC = () => {
 
     const applyFilters = () => {
         setLoading(true)
-        const results = medications.filter((medication: Medication) =>
+        const results = medications.filter((medication) =>
             Object.keys(filters).every((key) =>
                 filters[key as keyof typeof filters]
                     ? medication[key as keyof typeof filters]

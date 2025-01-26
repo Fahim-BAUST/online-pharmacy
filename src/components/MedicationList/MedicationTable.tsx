@@ -9,20 +9,7 @@ import {
     Paper,
     TableSortLabel,
 } from '@mui/material'
-
-interface Medication {
-    id: number
-    name: string
-    description: string
-    manufacturer: string
-    price: number
-}
-
-interface MedicationTableProps {
-    medications: Medication[]
-    sortOrder: 'asc' | 'desc' | null
-    onSortChange: () => void
-}
+import { MedicationTableProps } from '../../utils/types/types'
 
 const MedicationTable: React.FC<MedicationTableProps> = ({
     medications,
@@ -50,17 +37,25 @@ const MedicationTable: React.FC<MedicationTableProps> = ({
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {medications.map((medication) => (
-                        <TableRow key={medication.id}>
-                            <TableCell>{medication.id}</TableCell>
-                            <TableCell>{medication.name}</TableCell>
-                            <TableCell>{medication.description}</TableCell>
-                            <TableCell>{medication.manufacturer}</TableCell>
-                            <TableCell align="right">
-                                {medication.price.toFixed(2)}
+                    {medications?.length ? (
+                        medications?.map((medication) => (
+                            <TableRow key={medication.id}>
+                                <TableCell>{medication.id}</TableCell>
+                                <TableCell>{medication.name}</TableCell>
+                                <TableCell>{medication.description}</TableCell>
+                                <TableCell>{medication.manufacturer}</TableCell>
+                                <TableCell align="right">
+                                    {medication.price.toFixed(2)}
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={5} align="center">
+                                No medications found.
                             </TableCell>
                         </TableRow>
-                    ))}
+                    )}
                 </TableBody>
             </Table>
         </TableContainer>

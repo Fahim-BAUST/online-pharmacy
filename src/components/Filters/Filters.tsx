@@ -1,13 +1,7 @@
 import React from 'react'
 import { Box, Button } from '@mui/material'
 import InputField from '../Filters/InputField'
-
-interface FiltersProps {
-    filters: { name: string; description: string; manufacturer: string }
-    onFilterChange: (key: keyof FiltersProps['filters'], value: string) => void
-    onApplyFilters: () => void
-    onResetFilters: () => void
-}
+import { FiltersProps } from '../../utils/types/types'
 
 const Filters: React.FC<FiltersProps> = ({
     filters,
