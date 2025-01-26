@@ -171,7 +171,7 @@ Browser: Open your browser and navigate to:
 
 ## Documentation of the Server code
 
-## Prerequisites
+### Prerequisites
 
 Before running the project, ensure you have the following installed:
 
