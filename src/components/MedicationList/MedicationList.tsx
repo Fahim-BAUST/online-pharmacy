@@ -3,7 +3,7 @@ import { Alert, Box, Skeleton, Snackbar, TablePagination } from '@mui/material'
 import Filters from '../Filters/Filters'
 import MedicationTable from './MedicationTable'
 import { fetchMedications } from '../../services/api'
-import { Filter, Medication } from '../../utils/types/types'
+import { AlertSeverity, Filter, Medication } from '../../utils/types/types'
 
 const MedicationList: React.FC = () => {
     const filterInitialValue: Filter = {
@@ -20,9 +20,7 @@ const MedicationList: React.FC = () => {
     const [rowsPerPage, setRowsPerPage] = useState(5)
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>(null)
     const [alertState, setAlertState] = useState(false)
-    const [alertSeverity, setAlertSeverity] = useState<
-        'error' | 'warning' | 'info' | 'success'
-    >('success')
+    const [alertSeverity, setAlertSeverity] = useState<AlertSeverity>('success')
 
     useEffect(() => {
         const loadMedications = async () => {

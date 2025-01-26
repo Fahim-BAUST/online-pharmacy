@@ -34,3 +34,5 @@ export interface InputFieldProps {
     variant?: TextFieldProps['variant']
     size?: TextFieldProps['size']
 }
+
+export type AlertSeverity = 'error' | 'warning' | 'info' | 'success'
