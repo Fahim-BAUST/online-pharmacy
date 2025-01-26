@@ -8,6 +8,8 @@ const InputField: React.FC<InputFieldProps> = ({
     onChange,
     placeholder = 'Enter value',
     fullWidth,
+    variant,
+    size,
 }) => {
     return (
         <TextField
@@ -16,8 +18,8 @@ const InputField: React.FC<InputFieldProps> = ({
             onChange={onChange}
             placeholder={placeholder}
             fullWidth={fullWidth}
-            variant="outlined"
-            size="small"
+            variant={variant}
+            size={size}
         />
     )
 }

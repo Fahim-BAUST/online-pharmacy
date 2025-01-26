@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { Box, CircularProgress, TablePagination } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Alert, Box, Skeleton, Snackbar, TablePagination } from '@mui/material'
 import Filters from '../Filters/Filters'
 import MedicationTable from './MedicationTable'
-import { medications } from '../../utils/data'
+import { fetchMedications } from '../../services/api'
+import { Medication } from '../../utils/types/types'
 
 const MedicationList: React.FC = () => {
     const [filters, setFilters] = useState({
@@ -10,11 +11,36 @@ const MedicationList: React.FC = () => {
         description: '',
         manufacturer: '',
     })
+    const [medications, setMedications] = useState<Medication[]>([])
     const [filteredMedications, setFilteredMedications] = useState(medications)
     const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(5)
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>(null)
+    const [alertState, setAlertState] = useState(false)
+    const [alertSeverity, setAlertSeverity] = useState<
+        'error' | 'warning' | 'info' | 'success'
+    >('success')
+
+    useEffect(() => {
+        const loadMedications = async () => {
+            setLoading(true)
+            try {
+                const data = await fetchMedications()
+                setMedications(data)
+                setFilteredMedications(data)
+            } catch (error: any) {
+                setAlertState(true)
+                setAlertSeverity('error')
+                setErrorMessage(error.message || 'An unknown error occurred.')
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadMedications()
+    }, [])
 
     const handleFilterChange = (key: keyof typeof filters, value: string) => {
         setFilters((prev) => ({ ...prev, [key]: value }))
@@ -73,8 +99,12 @@ const MedicationList: React.FC = () => {
         setPage(0)
     }
 
+    const handleAlertClose = () => {
+        setAlertState(false)
+    }
+
     return (
-        <Box sx={{ px: 4 }}>
+        <Box sx={{ px: 4 }} data-testid="medication-list">
             <Filters
                 filters={filters}
                 onFilterChange={handleFilterChange}
@@ -82,8 +112,30 @@ const MedicationList: React.FC = () => {
                 onResetFilters={resetFilters}
             />
 
+            {errorMessage && (
+                <Snackbar
+                    open={alertState}
+                    autoHideDuration={6000}
+                    onClose={handleAlertClose}
+                >
+                    <Alert
+                        onClose={handleAlertClose}
+                        severity={alertSeverity}
+                        variant="filled"
+                    >
+                        {errorMessage}
+                    </Alert>
+                </Snackbar>
+            )}
+
             {loading ? (
-                <CircularProgress />
+                <Box data-testid="skeleton">
+                    {Array(5)
+                        .fill(1)
+                        .map((_, index) => (
+                            <Skeleton key={index} height={60} />
+                        ))}
+                </Box>
             ) : (
                 <>
                     <MedicationTable

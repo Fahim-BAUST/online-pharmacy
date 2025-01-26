@@ -15,16 +15,22 @@ const Filters: React.FC<FiltersProps> = ({
                 label="Filter by Name"
                 value={filters.name}
                 onChange={(e) => onFilterChange('name', e.target.value)}
+                variant="outlined"
+                size="small"
             />
             <InputField
                 label="Filter by Description"
                 value={filters.description}
                 onChange={(e) => onFilterChange('description', e.target.value)}
+                variant="outlined"
+                size="small"
             />
             <InputField
                 label="Filter by Manufacturer"
                 value={filters.manufacturer}
                 onChange={(e) => onFilterChange('manufacturer', e.target.value)}
+                variant="outlined"
+                size="small"
             />
             <Button variant="contained" onClick={onApplyFilters}>
                 Apply

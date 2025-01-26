@@ -1,3 +1,5 @@
+import { TextFieldProps } from '@mui/material'
+
 export interface Medication {
     id: number
     name: string
@@ -25,5 +27,6 @@ export interface InputFieldProps {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     placeholder?: string
     fullWidth?: boolean
-    size?: string
+    variant?: TextFieldProps['variant']
+    size?: TextFieldProps['size']
 }
