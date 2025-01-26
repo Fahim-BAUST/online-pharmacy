@@ -1,0 +1,14 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "target": "es2016",
+    "jsx": "react",  // change this to react                          
+    "module": "commonjs",                              
+    "esModuleInterop": true,                           
+    "forceConsistentCasingInFileNames": true,          
+    "strict": true,                   
+    "skipLibCheck": true,                                
+  }
+ }
