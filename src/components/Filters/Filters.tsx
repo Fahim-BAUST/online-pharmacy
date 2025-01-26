@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Button } from '@mui/material'
 import InputField from '../Filters/InputField'
-import { FiltersProps } from '../../utils/types/types'
+import { Filter, FiltersProps } from '../../utils/types/types'
 
 const Filters: React.FC<FiltersProps> = ({
     filters,
@@ -11,12 +11,14 @@ const Filters: React.FC<FiltersProps> = ({
 }) => {
     return (
         <Box display="flex" gap={2} alignItems="center" mb={3}>
-            {Object.keys(filters).map((filter: string) => (
+            {Object.keys(filters).map((key: string) => (
                 <InputField
-                    key={filter}
-                    label={`Filter by ${filter}`}
-                    value={filters[filter]}
-                    onChange={(e) => onFilterChange(filter, e.target.value)}
+                    key={key}
+                    label={`Filter by ${key}`}
+                    value={filters[key as keyof Filter]}
+                    onChange={(e) =>
+                        onFilterChange(key as keyof Filter, e.target.value)
+                    }
                     variant="outlined"
                     size="small"
                 />

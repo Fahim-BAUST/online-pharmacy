@@ -20,7 +20,7 @@ export interface Filter {
 }
 export interface FiltersProps {
     filters: Filter
-    onFilterChange: (key: keyof FiltersProps['filters'], value: string) => void
+    onFilterChange: (key: keyof Filter, value: string) => void
     onApplyFilters: () => void
     onResetFilters: () => void
 }
