@@ -22,7 +22,7 @@ git clone <repository-url>
 cd <repository-folder>
 ```
 
-### 1. Install Dependencies
+### 1. Clone the Repository
 
 Install Dependencies
 
