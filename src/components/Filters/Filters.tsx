@@ -14,7 +14,7 @@ const Filters: React.FC<FiltersProps> = ({
             {Object.keys(filters).map((filter: string) => (
                 <InputField
                     key={filter}
-                    label="Filter by Name"
+                    label={`Filter by ${filter}`}
                     value={filters[filter]}
                     onChange={(e) => onFilterChange(filter, e.target.value)}
                     variant="outlined"
